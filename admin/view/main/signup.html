@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<script>
+    function CheckInput(str,getid){
+        var xmlhttp;
+        if(str==""){
+            document.getElementById(getid).innerHTML="内容为空";
+            return;
+        }
+        else if(isNaN(str)){
+            document.getElementById(getid).innerHTML="不是数字";
+            return;
+        }
+        else if(str.length!=10){
+            document.getElementById(getid).innerHTML="请输入十位学号";
+            return;
+        }
+        if (window.XMLHttpRequest){
+            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else{
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                document.getElementById(getid).innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET","http://101.201.249.209/index.php/admin/main/checkInput?q="+str,true);
+        xmlhttp.send();
+
+        
+    }
+</script>
+<body>
+    <div id="mainlog">
+    <form action="admin/main/index">
+        <p>
+            选择你的楼号：      
+            <select name="dormid">
+            <option value="drom1">一号楼</option>
+            <option value="dorm2">二号楼</option>
+            <option value="drom3">三号楼</option>
+            <option value="dorm4">四号楼</option>
+            </select>
+        </p>
+        <p>
+            本人学号：
+            <input type="text" id="self_id" onkeyup="CheckInput(this.value,'self_id_note')">
+            <p id="self_id_note">提示：</p>
+
+        </p>
+        <p>
+            同住人1学号：
+            <input type="text" id="mate_1_id" onkeyup="CheckInput(this.value,'mate1_id_note')">
+            <p id="mate1_id_note">提示：</p>
+        </p>
+        <p>
+            同住人1邀请码：
+            <input type="text" id="mate_1_code">
+        </p>
+        <p>
+            同住人2学号：
+            <input type="text" id="mate_2_id" onkeyup="CheckInput(this.value,'mate2_id_note')">
+            <p id="mate2_id_note">提示：</p>
+        </p>
+        <p>
+            同住人2邀请码：
+            <input type="text" id="mate_2_code">
+        </p>
+        <p>
+            同住人3学号：
+            <input type="text" id="mate_3_id" onkeyup="CheckInput(this.value,'mate3_id_note')">
+            <p id="mate3_id_note">提示：</p>
+        </p>
+        <p>
+            同住人3邀请码：
+            <input type="text" id="mate_3_code">
+        </p>
+        <button action="submit">提交</button>
+
+
+    </form>
+    </div>
+    
+</body>
+</html>
